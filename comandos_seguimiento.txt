@@ -1,0 +1,35 @@
+#Primero se crea la carpeta donde se va a realizar todo, lo hacemos con el siguiente código:
+
+mkdir seguimiento
+
+#En este código se uso el mkdir para crear la carpeta llamada seguimiento en el home.
+
+#Ahora se va a realizar la descarga y la descompresión del archivo del organismo asignado. El código con el que realizaremos la descarga es el siguiente:
+
+wget https://ftp.ensembl.org/pub/current_gff3/cairina_moschata_domestica/Cairina_moschata_domestica.CaiMos1.0.114.gff3.gz
+
+#Aca utilizamos el comando wget para descargar de la dirección adjunta las características genómicas del organismo. Ahora vamos a descomprimir el archivo con el siguiente código:
+
+gunzip Cairina_moschata_domestica.CaiMos1.0.114.gff3.gz
+
+#Ya una vez descomprimido el archivo, podemos comenzar a responder las preguntas, primero analizaremos cuantos features tiene el archivo. Dado que el archivo está en formato GFF3 todo lo que no comience por # es un feature, corremos el siguiente código:
+
+grep -v "^#" Cairina_moschata_domestica.CaiMos1.0.114.gff3 | wc -l
+
+#En este código lo que se hace es lo siguiente: Se usa grep para poder encontrar coincidencias respecto a un patrón ingresado. Luego usamos -v para en vez de mostrar las líneas que si coinciden, mostrar las que no. Ahora añadimos ^# en donde ^ indica que buscaremos el inicio de la línea y # el carácter de interés. Por ultimo, usamos un pipe e introducimos el siguiente comando wc que realiza recuento de palabras pero le añadimos el -l para que me cuente el numero de líneas.
+
+#Ahora vamos a contar cuantas regiones de la secuencia (cromosomas) contiene el archivo. Estas regiones van a ser todas las que empiecen por ##sequence-region, esto es porque según el estándar de GFF3, cada una de estas líneas va a describir las regiones del genoma sobre las cuales se definieron las features. Por lo que vamos a utilizar un grep para encontrarlas:
+
+grep "^##sequence-region" Cairina_moschata_domestica.CaiMos1.0.114.gff3 | wc -l
+
+#Vamos a contar cuantos genes están listados en el organismo:
+ 
+grep -v "^#" Cairina_moschata_domestica.CaiMos1.0.114.gff3 | cut -f3 | grep -w "gene" | wc -l
+
+#En este código lo que hacemos es usar una instrucción similar a cuando contamos los features del archivo, pero añadiéndole que con el cut -f3 extraiga solo la 3era columna del archivo y luego comparamos si eso es se extrajo es igual a gene con otro grep y finalmente contamos las líneas que coincidieron con la instrucción. 
+
+#Ahora para hacer el top 10 de los tipos de features más repetidos en el genoma utilizamos el siguiente código:
+
+grep -v "^#" Cairina_moschata_domestica.CaiMos1.0.114.gff3 | cut -f3 | sort | uniq -c | sort -nr | head -10
+
+#En este código se usa el grep para identificar cada una de las features presentes en el archivo, luego se extrae la tercera columna del archivo y se ordenan los datos alfabéticamente para que las repeticiones sean consecutivas y permita que el uniq -c pueda contar cuantas veces seguidas aparezca cada tipo, después el sort -nr organiza los datos por mayor numero de repeticiones y finalmente el head me muestra los primeros 10.
