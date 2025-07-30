@@ -55,9 +55,20 @@ El organismo asignado es "Cairina moschata domestica" este es una variedad domes
 
 
 1. ¿Cuantos features contiene el archivo? : 944022
-2. ¿Cuantas regiones de la secuencia (cromosomas) contiene el archivo?: 2941 (En el archivo de texto plano en el momedo de definir el patron del grep no me dejó poner las comillas.)
+2. ¿Cuantas regiones de la secuencia (cromosomas) contiene el archivo?: 2941 
 3. ¿Cuántos genes están listados en el organismo? 15898
-4. ¿Cuál es el top 10 de tipo de features (columna 3) más anotados en el genoma? 
+4. ¿Cuál es el top 10 de tipo de features (columna 3) más anotados en el genoma?
+   Top 10
+   1. exon: 395833
+   2. CDS: 381077
+   3. biological_region: 80277
+   4. mRNA: 29016
+   5. five_prime_UTR: 18942
+   6. gene: 15898
+   7. three_prime_UTR: 15713
+   8. region: 2941
+   9. lnc_RNA: 2152
+   10. ncRNA_gene: 1651
 
 
 
